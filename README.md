@@ -225,3 +225,125 @@ func main() {
 Follow-up: When use sync/atomic instead?
 
 
+
+
+simple coding
+
+1. Variable Shadowing
+
+Question:
+What is the output of the following snippet?
+
+```go
+package main
+import "fmt"
+
+func main() {
+    x := 10
+    if true {
+        x := 20
+        fmt.Println(x)
+    }
+    fmt.Println(x)
+}
+```
+
+Expected Answer:
+
+20
+10
+
+
+Explanation:
+The inner x := 20 declares a new variable shadowing the outer one — scope ends with the block.
+
+Follow-up:
+
+What happens if you use x = 20 instead of x := 20?
+
+2. Nil Interface Trick
+
+Question:
+What is the output?
+
+```go
+package main
+import "fmt"
+
+func main() {
+    var x *int = nil
+    var i interface{} = x
+    if i == nil {
+        fmt.Println("nil interface")
+    } else {
+        fmt.Println("non-nil interface")
+    }
+}
+```
+
+Expected Answer:
+
+non-nil interface
+
+
+Explanation:
+The interface i holds a typed nil (*int(nil)), which means the interface itself isn’t nil — both type and value must be nil for the interface to be nil.
+
+Follow-up:
+
+How can you check if the underlying value of an interface is nil?
+
+3. Slice Backing Array Trap
+
+Question:
+What will be printed here?
+
+```go
+package main
+import "fmt"
+
+func main() {
+    s := []int{1, 2, 3}
+    t := s
+    t[0] = 100
+    fmt.Println(s)
+}
+```
+
+Expected Answer:
+
+[100 2 3]
+
+
+Explanation:
+Slices share the same backing array; modifying one changes all references.
+
+Follow-up:
+
+How can you make a true copy so s isn’t affected?
+
+4. Deferred Function Execution
+
+Question:
+Predict the output:
+
+```go
+package main
+import "fmt"
+
+func main() {
+    for i := 0; i < 3; i++ {
+        defer fmt.Println(i)
+    }
+}
+```
+
+Expected Answer:
+
+2
+1
+0
+
+
+Explanation:
+Deferred functions execute in LIFO order after main() returns.
