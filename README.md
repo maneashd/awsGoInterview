@@ -157,6 +157,7 @@ Mention of internal knowledge-sharing is a plus.
 You can ask 2–3 of these in the middle (Phases 3–4).
 
 1. Reverse a string
+```go
 func Reverse(s string) string {
     r := []rune(s)
     for i, j := 0, len(r)-1; i < j; i, j = i+1, j-1 {
@@ -164,6 +165,7 @@ func Reverse(s string) string {
     }
     return string(r)
 }
+```
 
 
 ✅ Should handle Unicode properly.
