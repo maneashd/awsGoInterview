@@ -19,7 +19,14 @@ Phase	Duration	Focus
 5	10 min	Leadership & ownership
 6	5 min	Wrap-up
 +	—	Coding Questions (mix into Phase 3 or 4)
+
+
+
+
 🔹 PHASE 1 — Introduction (5 mins)
+
+
+
 Q1: Tell me about one project where you owned end-to-end delivery using AWS and Go.
 
 Expected Answer: Should highlight complete ownership — from architecture to deployment — using AWS services like Lambda, ECS, or EC2, and Go for backend logic. Should mention CI/CD, monitoring, and cost optimization. A good candidate emphasizes design decisions, trade-offs, and outcomes (e.g., performance gains, cost savings).
@@ -30,7 +37,10 @@ Follow-up:
 
 “Which part only you understood deeply?” → Tests unique expertise and ownership instincts.
 
+
 🔹 PHASE 2 — AWS + Go Fundamentals (10 mins)
+
+
 Q2: Design a scalable API using AWS components.
 
 Expected Answer: Should mention Load Balancer (ALB), API Gateway, Lambda/ECS (Go runtime), RDS/DynamoDB, S3, and CloudWatch. Mentions security layers (IAM, VPC, SGs).
@@ -44,6 +54,9 @@ Region-level resilience through multi-region failover or Route53.
 
 Lambda timeout debugging using CloudWatch logs and X-Ray.
 
+
+
+
 Q3: Explain goroutines and channels in Go.
 
 Expected Answer: Goroutines are lightweight threads managed by Go runtime; channels synchronize and share data safely. The candidate should mention avoiding global state and using select for multiplexing.
@@ -56,7 +69,12 @@ Follow-ups:
 
 Awareness of goroutine leaks and context cancellations.
 
+
+
+
+
 🔹 PHASE 3 — Scenario-Based System Design (15 mins)
+
 Q4: Design a logging pipeline for multiple microservices (AWS + Go).
 
 Expected Answer: Use Kinesis Firehose or Kafka → Lambda (Go) → S3 → Glue/Athena for queries. Add CloudWatch logs for monitoring and IAM for permissions.
@@ -72,6 +90,9 @@ Scalability test using load simulation or AWS FIS.
 
 Multi-region via cross-region replication in S3.
 
+
+
+
 Q5: Structuring a Go project using AWS SDKs.
 
 Expected Answer: Use clean architecture: cmd/, pkg/, internal/.
@@ -83,7 +104,11 @@ Manage session reuse to prevent overhead.
 
 Use gomock or testify for mocking SDKs.
 
+
+
 🔹 PHASE 4 — Debugging & Problem Solving (15 mins)
+
+
 Q6: ECS Fargate service shows high latency — how to debug?
 
 Expected Answer: Start with CloudWatch metrics (CPU, memory, network). Check container logs, analyze X-Ray traces, and verify DB latency.
@@ -94,6 +119,9 @@ Follow-ups:
 Differentiate network vs code issues via VPC Flow Logs or profiling.
 
 Time-specific issues hint at autoscaling or DB throttling.
+
+
+
 
 Q7: S3 costs suddenly doubled — what’s your plan?
 
@@ -106,6 +134,9 @@ Automate cost enforcement using IaC and lifecycle policies.
 
 Use AWS Config for detecting public buckets.
 
+
+
+
 Q8: Deploy & roll back a Go microservice via CI/CD.
 
 Expected Answer: Use CodePipeline + CodeDeploy (blue/green). Terraform for infra.
@@ -117,7 +148,12 @@ Handle DB schema migrations with pre/post deploy steps.
 
 Rollback failure = resource conflict → automate cleanup.
 
+
+
 🔹 PHASE 5 — Leadership & Ownership (10 mins)
+
+
+
 Q9: You lead 4 engineers — how do you start from scratch?
 
 Expected Answer: Establish coding standards, Git branching, sprint rituals, CI/CD pipelines, and lightweight documentation. Prioritize backlog, define MVP, and ensure local setup works for all.
@@ -130,6 +166,9 @@ Handling underperformers = mentorship + pairing + clear goals.
 
 Teaching juniors: review-based learning and pair debugging.
 
+
+
+
 Q10: PM changes requirements mid-sprint — what’s your move?
 
 Expected Answer: Reassess impact, communicate clearly to team and PM, adjust sprint scope if needed.
@@ -141,7 +180,11 @@ Balance delivery vs flexibility.
 
 Propose feature flags to decouple delivery from requirements.
 
+
+
 🔹 PHASE 6 — Wrap-Up (5 mins)
+
+
 Q11: What’s one AWS or Go concept you learned recently?
 
 Expected Answer: Should mention something advanced like Lambda SnapStart, Step Functions, Go generics, or context propagation.
