@@ -172,61 +172,56 @@ func Reverse(s string) string {
 
 Follow-up: Why rune instead of byte?
 
-2. Safe counter
-type Counter struct {
-    mu sync.Mutex
-    val int
+2. Write a Go function that counts occurrences of each word in a given sentence.
+
+```go
+package main
+
+import (
+	"fmt"
+	"strings"
+)
+
+// CountWordOccurrences counts the occurrences of each word in a given sentence.
+// It returns a map where keys are the words and values are their respective counts.
+func CountWordOccurrences(sentence string) map[string]int {
+	// Convert the sentence to lowercase to treat "The" and "the" as the same word.
+	lowerSentence := strings.ToLower(sentence)
+
+	// Split the sentence into words using whitespace as a delimiter.
+	// strings.Fields handles multiple spaces and trims leading/trailing spaces.
+	words := strings.Fields(lowerSentence)
+
+	// Create a map to store word counts.
+	wordCounts := make(map[string]int)
+
+	// Iterate over the words and increment their counts in the map.
+	for _, word := range words {
+		wordCounts[word]++
+	}
+
+	return wordCounts
 }
 
-func (c *Counter) Inc() { c.mu.Lock(); c.val++; c.mu.Unlock() }
-func (c *Counter) Dec() { c.mu.Lock(); c.val--; c.mu.Unlock() }
-func (c *Counter) Value() int { c.mu.Lock(); defer c.mu.Unlock(); return c.val }
+func main() {
+	sentence := "Go is a great language. Go is fun to learn."
+	counts := CountWordOccurrences(sentence)
 
+	fmt.Println("Word occurrences:")
+	for word, count := range counts {
+		fmt.Printf("'%s': %d\n", word, count)
+	}
 
-✅ Tests thread safety understanding.
+	sentence2 := "Hello world, hello Go!"
+	counts2 := CountWordOccurrences(sentence2)
+
+	fmt.Println("\nWord occurrences for second sentence:")
+	for word, count := range counts2 {
+		fmt.Printf("'%s': %d\n", word, count)
+	}
+}
+```
 
 Follow-up: When use sync/atomic instead?
 
-3. Worker pool
-func worker(id int, jobs <-chan int, results chan<- int, wg *sync.WaitGroup) {
-    defer wg.Done()
-    for j := range jobs {
-        results <- j * 2
-    }
-}
 
-
-✅ Expect proper use of goroutines, channels, and WaitGroups.
-
-Follow-up:
-
-How to stop workers on error?
-
-What if jobs channel closes early?
-
-4. Retry with exponential backoff
-func Retry(operation func() error, attempts int) error {
-    delay := time.Second
-    for i := 0; i < attempts; i++ {
-        err := operation()
-        if err == nil { return nil }
-        time.Sleep(delay)
-        delay *= 2
-    }
-    return fmt.Errorf("failed after %d retries", attempts)
-}
-
-
-✅ Tests error handling & timing logic.
-
-Follow-up: Add context cancellation or jitter.
-
-5. JSON Manipulation
-var obj map[string]interface{}
-json.Unmarshal([]byte(`{"name":"John","age":30}`), &obj)
-obj["role"] = "Senior Engineer"
-data, _ := json.Marshal(obj)
-fmt.Println(string(data))
-
-
-✅ Tests struct vs map usage and dynamic JSON handling.
